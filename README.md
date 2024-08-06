@@ -36,4 +36,4 @@ Project contains simple example for Graph API and Exchange protocols using https
 with OAuth2 user authorization code flow - user needs to make a consent.
 Done and tested according to https://developers.google.com/gmail/api/quickstart/python with my personal gmail account.
 
-Credentials should be downloaded from gmail and stored in *gmail-web-credentials.json* file.
+Credentials should be downloaded from gmail and stored in *gmail-web-credentials.json* file for "user" flow and *gmail-service-credentials.json* for service client.
