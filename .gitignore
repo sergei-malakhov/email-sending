@@ -2,3 +2,6 @@ __pycache__
 o365_token.txt
 .env
 gmail-web-credentials.json
+gmail-service-credentials.json
+token.json
+
