@@ -6,6 +6,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+from google.oauth2 import service_account
+
 import base64
 from email.message import EmailMessage
 
@@ -17,11 +19,12 @@ gmail_email = os.getenv('GMAIL_EMAIL')
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly", "https://www.googleapis.com/auth/gmail.send"]
 
-def send_gmail_email():
-  """Shows basic usage of the Gmail API.
-  Lists the user's Gmail labels.
-  """
+def get_service_credentials(): 
+  return service_account.Credentials.from_service_account_file('gmail-service-credentials.json', scopes=SCOPES)
+
+def get_user_credentials():
   creds = None
+
   # The file token.json stores the user's access and refresh tokens, and is
   # created automatically when the authorization flow completes for the first
   # time.
@@ -40,6 +43,8 @@ def send_gmail_email():
     with open("token.json", "w") as token:
       token.write(creds.to_json())
 
+def send_gmail_email(creds):
+ 
   try:
     # Call the Gmail API
     service = build("gmail", "v1", credentials=creds)
@@ -66,3 +71,9 @@ def send_gmail_email():
 
   except HttpError as error:
     print(f"An error occurred: {error}")
+
+def send_gmail_service_email():
+  send_gmail_email(get_service_credentials())
+
+def send_gmail_user_email():
+  send_gmail_email(get_user_credentials())
